@@ -1188,8 +1188,9 @@ public class ReadWriteNonCoreDataServiceImpl implements ReadWriteNonCoreDataServ
         }
 
         this.columnValidator.validateSqlInjection(sql, order);
-        if (order != null) {
-            sql = sql + " order by " + order;
+        if (StringUtils.isNotBlank(order)) {
+            if (order != null) {	         
+                   this.columnValidator.validateSqlInjection(sql, order);
         }
 
         final List<ResultsetRowData> result = fillDatatableResultSetDataRows(sql);
